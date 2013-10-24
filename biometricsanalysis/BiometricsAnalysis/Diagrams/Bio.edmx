@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="FaceRecognition.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
+        <EntityContainer Name="FaceRecognitionTargetContainer" >
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="FaceRecognition" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="FaceRecognitionContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Entries" EntityType="FaceRecognition.Entries" />
+          <EntitySet Name="Faces1" EntityType="FaceRecognition.Faces" />
+          <AssociationSet Name="EntriesEntity1" Association="FaceRecognition.EntriesEntity1">
+            <End Role="Entries" EntitySet="Entries" />
+            <End Role="Entity1" EntitySet="Faces1" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Entries">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="FirstName" Nullable="false" />
+          <Property Type="String" Name="LastName" Nullable="false" />
+          <NavigationProperty Name="Entity1" Relationship="FaceRecognition.EntriesEntity1" FromRole="Entries" ToRole="Entity1" />
+        </EntityType>
+        <EntityType Name="Faces">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="faceId" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Entry" Relationship="FaceRecognition.EntriesEntity1" FromRole="Entity1" ToRole="Entries" />
+          <Property Type="String" Name="percentage" Nullable="false" />
+          <Property Type="String" Name="isSample" Nullable="false" />
+          <Property Type="String" Name="comment" Nullable="false" />
+          <Property Type="String" Name="img" Nullable="false" />
+          <Property Type="Int32" Name="faceId" Nullable="false" />
+        </EntityType>
+        <Association Name="EntriesEntity1">
+          <End Type="FaceRecognition.Entries" Role="Entries" Multiplicity="1" />
+          <End Type="FaceRecognition.Faces" Role="Entity1" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="FaceRecognition" />
+        <Alias Key="Target" Value="FaceRecognition.Store" />
+        <EntityContainerMapping CdmEntityContainer="FaceRecognitionContainer" StorageEntityContainer="FaceRecognitionTargetContainer">
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
